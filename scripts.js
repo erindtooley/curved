@@ -23,25 +23,7 @@ function curveScore(original, curveAmount) {
 // Generate a random array
 const testScores = Array.from({ length: 20 }, () => getRandomIntInclusive(60, 100));
 
-// console.log(`Original Scores: ${testScores}`);
-
-/*
- * There is another video showing how to achieve this result using forEach().
- * While that is an adequate solution, this one is just so much sweeter, I have elected
- * to only leave this one in.
-*/
 const curvedScores = testScores.map(el => curveScore(el, 10));
-
-/*
- * Just for illustration purposes, the ES5 equivalent of our map fxn. is also shown.
- * Notice the dramatic, shorter, less complex syntax when we use ES2015! :)
- * 
- * const curvedScores = testScores.map(function(el) {
- *  return curveScore(el, 10);
- * });
-*/
-
-// console.log(`Curved Scores: ${curvedScores}`);
 
 // Generate a listing of the scores in the browser.
 
@@ -52,3 +34,11 @@ const template = document.querySelector('#score-row');
  * We must use querySelectorAll() (not querySelector()) to grab all of the <td>s into an array.
 */
 const data = template.content.querySelectorAll('td');
+
+/*
+  1. Add next testScore (textContent) into data[0].
+  2. Add next curvedScore (textContent) into data[1].
+  3. Clone template's content. This will include <tr> and the data we just inserted into <td>s.
+  4. Insert it into 'viewable' table. We place it in <tbody>.
+  5. Repeat this process forEach element of each array. Also, by definition, both curvedScores and testScores will have same length.
+*/
