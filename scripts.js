@@ -21,7 +21,9 @@ function curveScore(original, curveAmount) {
 }
 
 // Generate a random array
-const testScores = Array.from({ length: 20 }, () => getRandomIntInclusive(60, 100));
+const testScores = Array.from({ length: 10 }, () =>
+  getRandomIntInclusive(60, 100)
+);
 
 const curvedScores = testScores.map(el => curveScore(el, 10));
 
@@ -29,16 +31,18 @@ const curvedScores = testScores.map(el => curveScore(el, 10));
 
 // Instantiate the table with the existing HTML <tbody> and the row with the <template>
 const template = document.querySelector('#score-row');
+// Grab <tbody> so we can insert the data from that we are adding to the template.
+const tbody = document.querySelector('tbody');
 
 /*
  * We must use querySelectorAll() (not querySelector()) to grab all of the <td>s into an array.
 */
 const data = template.content.querySelectorAll('td');
 
-/*
-  1. Add next testScore (textContent) into data[0].
-  2. Add next curvedScore (textContent) into data[1].
-  3. Clone template's content. This will include <tr> and the data we just inserted into <td>s.
-  4. Insert it into 'viewable' table. We place it in <tbody>.
-  5. Repeat this process forEach element of each array. Also, by definition, both curvedScores and testScores will have same length.
-*/
+for (let i = 0; i < testScores.length; i++) {
+  data[0].textContent = testScores[i];
+  data[1].textContent = curvedScores[i];
+
+  const content = document.importNode(template.content, true);
+  tbody.appendChild(content);
+}
