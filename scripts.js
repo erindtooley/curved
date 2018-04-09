@@ -46,3 +46,11 @@ for (let i = 0; i < testScores.length; i++) {
   const content = document.importNode(template.content, true);
   tbody.appendChild(content);
 }
+
+const name = {
+  first: 'Erin',
+  last: 'Tooley',
+  hobbies: 'Whatever the tiny humans require'
+};
+p = document.querySelector('p');
+p.textContent = `Created By ${name.first} ${name.last}`;
